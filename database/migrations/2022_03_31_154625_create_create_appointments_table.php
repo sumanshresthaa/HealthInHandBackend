@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('describeProblem');
             $table->string('optional1');
             $table->string('optional2');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
          
             $table->timestamps();
         });

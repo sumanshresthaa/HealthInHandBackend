@@ -39,16 +39,15 @@ Route::get('/detailsOfDoctor', 'App\Http\Controllers\DoctorProfileController@get
 //Below is a middleware where we can put routes which will stop any routes without api token or in simple words you have to logged in to access this route
 Route::middleware(['auth:sanctum'])->group(function (){
 
-    Route::get("emergencynumber",[EmergencyNumber::class,'numberList']);
-
+  
+    Route::post('createAppointment', [CreateAppointmentController::class, 'store']);
+    Route::get('getAppointments', [CreateAppointmentController::class, 'index']);
+    //For now the update only works in param
+    //Change the below into post to do it in body of the postman or flutter
+    Route::put('{id}/updateAppointment', [CreateAppointmentController::class, 'update']);
+    Route::delete('{id}/deleteAppointment', [CreateAppointmentController::class, 'delete']);
 Route::post('logout', [AuthController::class, 'logout']);
 
 });
+Route::get("emergencynumber",[EmergencyNumber::class,'numberList']);
 
-
-Route::post('createAppointment', [CreateAppointmentController::class, 'store']);
-Route::get('getAppointments', [CreateAppointmentController::class, 'index']);
-//For now the update only works in param
-//Change the below into post to do it in body of the postman or flutter
-Route::put('{id}/updateAppointment', [CreateAppointmentController::class, 'update']);
-Route::delete('{id}/deleteAppointment', [CreateAppointmentController::class, 'delete']);

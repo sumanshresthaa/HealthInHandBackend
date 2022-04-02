@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 use App\Models\CreateAppointment;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class CreateAppointmentController extends Controller
 {
     public function store(Request $request) //For creating appointment
     {
+
         $request->validate([
             'name'=>'required|max:191',
             'age'=>'required|max:100',
@@ -16,6 +17,14 @@ class CreateAppointmentController extends Controller
             'hospitalName'=>'required|max:191',
         ]);
 
+        $data = CreateAppointment::where([
+            ['datetime', '=', $request->datetime],
+            ['hospitalName', '=', $request->hospitalName]
+        ])->get();
+
+        if(count($data) > 0) {
+            return response()->json(['message'=>'Appointment already exsit'],200);
+        }
 
         $appointment = new CreateAppointment;
         $appointment->name = $request->name;
@@ -28,6 +37,8 @@ class CreateAppointmentController extends Controller
         $appointment->describeProblem = $request->describeProblem;
         $appointment->optional1 = $request->optional1;
         $appointment->optional2 = $request->optional2;
+        $appointment->user_id = Auth::user()->id;
+
         $appointment->save();
         return response()->json(['message'=>'Appointment created Successfully'],200);
 
@@ -36,7 +47,11 @@ class CreateAppointmentController extends Controller
     }
     public function index() //Getting all the list of appointments made
     {
-        $appointment = CreateAppointment::all();
+
+        $userId = Auth::user()->id;
+        
+
+        $appointment = CreateAppointment::whereUserId($userId)->get();
         return response()->json(['appointments'=>$appointment], 200);
     }
 
