@@ -22,6 +22,8 @@ class CreateAppointmentController extends Controller
             ['hospitalName', '=', $request->hospitalName]
         ])->get();
 
+        
+
         if(count($data) > 0) {
             return response()->json(['message'=>'Appointment already exsit'],200);
         }
