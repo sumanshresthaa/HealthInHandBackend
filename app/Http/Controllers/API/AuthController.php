@@ -5,7 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+use function PHPUnit\Framework\isTrue;
 
 class AuthController extends Controller
 {
@@ -28,8 +31,10 @@ class AuthController extends Controller
         //Creating a token
 
         $token = $user->createToken('healthInHandToken')->plainTextToken;
+        $isTrue = true;
 
         $response = [
+            'created' => $isTrue,
             'user' => $user,
             'token' => $token,
         ];
@@ -40,7 +45,9 @@ class AuthController extends Controller
 
     public function logout()
     {
-        auth()->user()->tokens()->delete();
+
+        // auth()->user()->tokens()->delete(); 
+        Auth::logout();    
         return response(['message' => 'Logged out successfully']);
     }
 

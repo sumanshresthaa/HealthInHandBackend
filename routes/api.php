@@ -28,6 +28,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 
+Route::post('logout', [AuthController::class, 'logout']);
 
 //Route::get('/post', 'App\Http\Controllers\PostController@getPost');
 Route::get('/detailsOfArthritis', 'App\Http\Controllers\ArthritisController@getDetailsOfArthritis');
@@ -46,7 +47,6 @@ Route::middleware(['auth:sanctum'])->group(function (){
     //Change the below into post to do it in body of the postman or flutter
     Route::put('{id}/updateAppointment', [CreateAppointmentController::class, 'update']);
     Route::delete('{id}/deleteAppointment', [CreateAppointmentController::class, 'delete']);
-Route::post('logout', [AuthController::class, 'logout']);
 
 });
 Route::get("emergencynumber",[EmergencyNumber::class,'numberList']);
