@@ -28,7 +28,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 
-Route::post('logout', [AuthController::class, 'logout']);
+
 
 //Route::get('/post', 'App\Http\Controllers\PostController@getPost');
 Route::get('/detailsOfArthritis', 'App\Http\Controllers\ArthritisController@getDetailsOfArthritis');
@@ -39,8 +39,7 @@ Route::get('/detailsOfDoctor', 'App\Http\Controllers\DoctorProfileController@get
 
 //Below is a middleware where we can put routes which will stop any routes without api token or in simple words you have to logged in to access this route
 Route::middleware(['auth:sanctum'])->group(function (){
-
-  
+    Route::post('logout', [AuthController::class, 'logout']);
     Route::post('createAppointment', [CreateAppointmentController::class, 'store']);
     Route::get('getAppointments', [CreateAppointmentController::class, 'index']);
     //For now the update only works in param

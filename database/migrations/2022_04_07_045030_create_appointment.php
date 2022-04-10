@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('age');
             $table->string('gender');
             $table->string('phone');
-            $table->dateTime('datetime');
+            //Changed string from datetime
+            $table->string('datetime');
             $table->string('doctorName');
             $table->string('hospitalName');
             $table->string('describeProblem');

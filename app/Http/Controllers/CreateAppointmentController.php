@@ -22,6 +22,14 @@ class CreateAppointmentController extends Controller
             ['hospitalName', '=', $request->hospitalName]
         ])->get();
 
+        $patientId = CreateAppointment::where([
+            ['optional1', '=', $request->optional1],
+            
+        ])->get();
+        if(count($patientId) > 0) {
+            return response()->json(['message'=>'Already a doctor Id'],200);
+        }
+
         
 
         if(count($data) > 0) {

@@ -5,13 +5,15 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 use function PHPUnit\Framework\isTrue;
 
 class AuthController extends Controller
 {
+    
     public function register(Request $request)
     {
         $data = $request->validate([
@@ -45,8 +47,9 @@ class AuthController extends Controller
 
     public function logout()
     {
+        
 
-        // auth()->user()->tokens()->delete(); 
+       // auth()->user()->tokens()->delete(); 
         Auth::logout();    
         return response(['message' => 'Logged out successfully']);
     }
